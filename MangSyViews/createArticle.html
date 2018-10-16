@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="images/icon/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="editor/ueditor.config.js"></script>
+<script src="editor/ueditor.all.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function getCreatActicleInfo() {
+        console.log("refreshData begin()");
+        //设置日期组件初始化时间
+        var date = new Date();
+        console.log(date);
+        var date_format = date.getFullYear()+"-"
+            + (date.getMonth() < 10?'0'+ date.getMonth() : date.getMonth())  + "-"
+            + (date.getDay() < 10?'0'+ date.getDay() : date.getDay()) + "T"
+            + (date.getHours() < 10?'0'+ date.getHours() : date.getHours()) + ":"
+            + (date.getMinutes() < 10?'0'+ date.getMinutes(): date.getMinutes());
+        console.log(date_format);
+        document.getElementById("article_opentime").value = date_format;
+        document.getElementById("article_endtime").value = date_format;
+        document.getElementById("article_updatetime").value = date_format;
+        console.log("get kolList begin");
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function () {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                console.log("call back sucesss:" + xmlhttp.responseText);
+                // document.getElementById("kol_info").innerHTML=xmlhttp.responseText;
+                try {
+                    var kolList = JSON.parse(xmlhttp.responseText);
+                    var select_kol_list_html = "\n<option>请选择</option>\n";
+                    for(var i = 0 ; i < kolList.length ;i++){
+                        select_kol_list_html += "\n<option value=\"" + kolList[i].kol_id + "\">" + kolList[i].kol_name + "</option>\n"
+                    }
+                    document.getElementById("select_kol_list").innerHTML = select_kol_list_html;
+                }catch (e) {
+                    console.log("parse kolList error:" + e);
+                    document.getElementById("select_kol_list").innerHTML = "\n<option>加载错误，请刷新</option>\n";
+                }
+            }
+        };
+        xmlhttp.open("GET","/kol/getKolList?",true);
+        xmlhttp.send();
+    }
+    function getUEText() {
+        var ue = UE.getEditor('container');
+        // console.log(ue.getPlainTxt());
+        console.log(ue.getContent());
+        // https://ueditor.baidu.com/website/onlinedemo.html 在此查看API
+
+    }
+
+</script>
+<body class="content mCustomScrollbar" onload="getCreatActicleInfo()">
+<form action="/article/creat_new_article?" method="post">
+    <div class="page-wrap">
+        <!--开始::内容-->
+        <section class="page-hd">
+            <header>
+                <h2 class="title">新增文章</h2>
+                <p class="title-description">
+                    需要配置以下字段。
+                </p>
+            </header>
+            <hr>
+        </section>
+        <div class="form-group-col-2">
+            <div class="form-label">文章标题：</div>
+            <div class="form-cont">
+                <input type="text" name="article_title" placeholder="取个比较爆款标题？例如：仰哥贼帅..." class="form-control form-boxed"  style="width:300px;" required="true">
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">开赛时间：</div>
+            <div class="form-cont">
+                <input type="datetime-local" id ="article_opentime" name="article_opentime" class="form-control form-boxed"  style="width:300px;" required="true">
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">上线时间：</div>
+            <div class="form-cont">
+                <input type="datetime-local" id ="article_updatetime" name="article_updatetime" class="form-control form-boxed"  style="width:300px;" required="true">
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">下线时间：</div>
+            <div class="form-cont">
+                <input type="datetime-local" id ="article_endtime" name="article_endtime" class="form-control form-boxed"  style="width:300px;" required="true">
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">作者：</div>
+            <div class="form-cont">
+                <select style="width:auto;" id="select_kol_list" name="select_kol_list">
+                    <option>加载错误请刷新</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">价格：</div>
+            <div class="form-cont">
+                <input type="text" name="article_price" placeholder="给个价格？例如：6.66" class="form-control form-boxed"  style="width:300px;" required="true">
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-hd">免费文章部分</div>
+            <div class="panel-bd">
+                <script id="free_article" name="free_article" type="text/plain" >在这里填写免费的文章内容...</script>
+                <script type="text/javascript">
+                    var ue = UE.getEditor('free_article');
+                </script>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-hd">收费文章部分</div>
+            <div class="panel-bd">
+                <script id="charge_article" name="charge_article" type="text/plain">在这里填写收费的文章内容...</script>
+                <script type="text/javascript">
+                    var ue = UE.getEditor('charge_article');
+                </script>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="提交表单"  onclick="getUEText()"/>
+        <input type="reset" class="btn btn-disabled" value="重置" />
+</form>
+</body>
+</html>

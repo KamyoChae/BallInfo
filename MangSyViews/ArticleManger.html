@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8"/>
+<link rel="icon" href="images/icon/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function loadData() {
+        console.log("refreshData begin()");
+        var xmlhttp = new XMLHttpRequest();;
+        xmlhttp.onreadystatechange=function () {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                console.log("call back sucesss:" + xmlhttp.responseText);
+                document.getElementById("atricle_info").innerHTML=xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","/article/getArticleList?",true);
+        xmlhttp.send();
+    }
+</script>
+<body class="content mCustomScrollbar" onload="loadData()">
+<!--<body class="content mCustomScrollbar">-->
+<div class="page-wrap">
+    <!--开始::内容-->
+    <section class="page-hd">
+        <header>
+            <h2 class="title">文章管理页面</h2>
+            <p class="title-description">
+                表格系列，四种表格样式，隔行换色，鼠标经过等
+            </p>
+        </header>
+        <hr>
+    </section>
+    <table class="table mb-15" id = "article_table">
+        <thead>
+        <tr>
+            <th>文章ID</th>
+            <th>文章标题</th>
+            <th>作者</th>
+            <th>价格</th>
+            <th>上线时间</th>
+            <th>开场时间</th>
+            <th>散场时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="atricle_info"></tbody>
+    </table>
+</div>
+</body>
+</html>

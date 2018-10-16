@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>后台管理系统-HTML5后台管理系统</title>
+<meta name="keywords"  content="设置关键词..." />
+<meta name="description" content="设置描述..." />
+<meta name="author" content="DeathGhost" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<link rel="icon" href="/MangSy/images/icon/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="/MangSy/css/style.css" />
+<script src="/MangSy/javascript/jquery.js"></script>
+<script src="/MangSy/javascript/plug-ins/customScrollbar.min.js"></script>
+<script src="/MangSy/javascript/plug-ins/echarts.min.js"></script>
+<script src="/MangSy/javascript/plug-ins/layerUi/layer.js"></script>
+<script src="/MangSy/editor/ueditor.config.js"></script>
+<script src="/MangSy/editor/ueditor.all.js"></script>
+<script src="/MangSy/javascript/plug-ins/pagination.js"></script>
+<script src="/MangSy/javascript/public.js"></script>
+</head>
+<body>
+<div class="main-wrap">
+	<div class="side-nav">
+		<div class="side-logo">
+			<div class="logo">
+				<span class="logo-ico">
+					<i class="i-l-1"></i>
+					<i class="i-l-2"></i>
+					<i class="i-l-3"></i>
+				</span>
+				<strong>模块化后台管理模板</strong>
+			</div>
+		</div>
+		
+		<nav class="side-menu content mCustomScrollbar" data-mcs-theme="minimal-dark">
+			<h2>
+				<a href="creatNewKol.html" class="InitialPage" target="view_frame"><i class="icon-dashboard"></i>新增Kol</a>
+				<a href="KolManger.html" class="InitialPage" target="view_frame"><i class="icon-dashboard"></i>Kol管理</a>
+				<a href="createArticle.html" class="InitialPage" target="view_frame"><i class="icon-dashboard"></i>新增文章</a>
+				<a href="ArticleManger.html" class="InitialPage" target="view_frame"><i class="icon-dashboard"></i>文章管理</a>
+			</h2>
+		</nav>
+	</div>
+	<div class="content-wrap">
+		<header class="top-hd">
+			<div class="hd-lt">
+				<a class="icon-reorder"></a>
+			</div>
+			<div class="hd-rt">
+				<ul>
+					<li>
+						<a href="#" target="_blank"><i class="icon-home"></i>前台访问</a>
+					</li>
+					<li>
+						<a><i class="icon-random"></i>清除缓存</a>
+					</li>
+					<li>
+						<a><i class="icon-user"></i>管理员:<em>DeathGhost</em></a>
+					</li>
+					<li>
+						<a><i class="icon-bell-alt"></i>系统消息</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" id="JsSignOut"><i class="icon-signout"></i>安全退出</a>
+					</li>
+				</ul>
+			</div>
+		</header>
+		<main class="main-cont content mCustomScrollbar">
+			<!--开始::内容-->
+			<!---此处iframe 宽高要自适应--->
+			<!--<iframe name="view_frame" width="100%"  height="1000px" frameborder="0"></iframe>-->
+			<iframe name="view_frame" onload="this.height=view_frame.document.body.scrollHeight" width="100%" frameborder="0"></iframe>
+		</main>
+	</div>
+</div>
+</body>
+</html>
