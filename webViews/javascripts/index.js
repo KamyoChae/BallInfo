@@ -92,9 +92,14 @@ Vue.prototype.chackBar = function(){
         changeUrl:function(){
 
             // 默认进入首页
-            var hrefSplit = window.location.href.split("#")[1]
+
+            // 下面这个会把url分割成 ["localhost:8080", ""] 
+            // 取出索引1 如果是空字符串就表示这个是默认的启动页面
+            var hrefSplit = window.location.href.split("/")[1]
            
-            if(hrefSplit == "/"){
+            if(hrefSplit == ""){
+                // 如果是默认启动页面 就给href加个后缀home
+                // location.href就是 http://localhost:8080/ 
                 window.location.href = window.location.href + "home"
             }
         },
